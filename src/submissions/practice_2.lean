@@ -213,7 +213,7 @@ apply iff.intro to split our goal into two implications. Our
 new goals are to prove P ∧ (Q ∨ R) → (P ∧ Q) ∨ (P ∧ R) and to
 prove (P ∧ Q) ∨ (P ∧ R) → P ∧ (Q ∨ R). To prove 
 P ∧ (Q ∨ R) → (P ∧ Q) ∨ (P ∧ R) we first assume we have a proof, 
-call it pqr, of P ∧ (Q ∨ R). We can then contrust a proof Q ∨ R
+call it pqr, of P ∧ (Q ∨ R). We can then construct a proof Q ∨ R
 using (have qr : (Q ∨ R) := and.elim_right pqr). We can then apply
 or.elim to qr, which makes our goals turn into proving Q → (P ∧ Q) ∨ (P ∧ R)
 and R → (P ∧ Q) ∨ (P ∧ R). To prove Q → (P ∧ Q) ∨ (P ∧ R), we first

@@ -293,6 +293,28 @@ begin
 end
 
 /-
+example : ∀ (P Q R : Prop), P ∨ (Q ∧ R) ↔ (P ∨ Q) ∧ (P ∨ R) := 
+
+Proof: First we assume P, Q, and R are arbitrary 
+propositions. Our goal is to prove P ∨ (Q ∧ R) ↔ (P ∨ Q) ∧ (P ∨ R).
+We can apply iff.intro to split the ↔ connective into 
+two implication propositions. Our goals are now to prove 
+P ∨ (Q ∧ R) → (P ∨ Q) ∧ (P ∨ R) and to prove 
+(P ∨ Q) ∧ (P ∨ R) → P ∨ (Q ∧ R). To prove 
+P ∨ (Q ∧ R) → (P ∨ Q) ∧ (P ∨ R) we first assume we have a 
+proof, pqr, of P ∨ (Q ∧ R). We now have to show (P ∨ Q) ∧ (P ∨ R)
+logically follows. We can apply and.intro, or.elim, and use 
+our assumptions to prove (P ∨ Q) ∧ (P ∨ R). What is left
+to be proven is (P ∨ Q) ∧ (P ∨ R) → P ∨ (Q ∧ R)). We can first assume
+that we have a proof, pqpr, that proves (P ∨ Q) ∧ (P ∨ R). 
+To prove that P ∨ (Q ∧ R) follows we can begin by
+contructing a proof of (pq : P ∧ Q) using a have tactic 
+and and.elim_left on pqpr, and we can also construct a proof
+of (pr : P ∨ R) using a have tactic and and.elim_right 
+on pqpr. We now have all the necessary proofs and propositions 
+to apply or.elim and or.intro tactics to prove P ∨ (Q ∧ R)).
+In that context ∀ (P Q R : Prop), P ∨ (Q ∧ R) ↔ (P ∨ Q) ∧ (P ∨ R)
+is proven. 
 
 -/
 
