@@ -167,13 +167,13 @@ English language sentences.
 -/
 
 -- Everyone likes him or herself
-∀ (p : Person), Likes p p
+
 -- Someone doesn't like him or herself
-∃ (p : Person), ¬Likes p p
--- There is someone that likes someone else
-∃ (p p2: Person), Likes p p2
+
+-- There is someone likes someone else
+
 -- No one likes anyone who dislikes them
-¬∃(p p2: Person), ¬Likes p p2 → Likes p2 p
+
 -- Everyone likes anyone who is nice
 
 -- No one likes anyone who is not nice
@@ -183,22 +183,3 @@ If everyone who's nice likes someone, then
 there is someone whom everyone who is nice 
 likes.
 -/
-∀(p : person), (∃ p2 : person), nice p → Likes p p2 → ∃ (p : person), ∀ p2: Person, nice p2 → Likes p2 p 
---this is false
-
-example : ¬(∀ (p : Person), Likes p p) ↔ ∃ (p : Person), ¬ Likes p p:=
-begin
-  apply iff.intro,
-  assume h,
-  --backwards
-  assume h,
-  cases h with p pf,
-  assume p2,
-  have f := p2 p,
-  contradiction,
-  
-
-  
-  
-  
-end
