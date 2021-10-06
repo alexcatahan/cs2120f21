@@ -41,13 +41,15 @@ rule for →.
 
 (P Q : Prop) (p2q : P → Q) (p : P)
 ----------------------------------
-     [replace with answer]
+            q : Q
 -/
 
 -- Give a formal proof of the following
 example : ∀ (P Q : Prop) (p2q : P → Q) (p : P), Q :=
 begin
-  _
+  assume P Q,
+  assume PimpQ,
+  assumption,
 end
 
 -- Extra credit [2 points]. Who invented this principle?
@@ -72,7 +74,12 @@ inference rule notation.
 Give a brief English language explanation of
 the introduction rule for true.
 
--- answer here
+-- answer here:
+/-
+An axiom states that true has a single proof, 
+true.intro, and therefore true is unconditionally
+true
+-/
 
 ELIMINATION
 
@@ -87,7 +94,7 @@ there's no use for an elimination rule.
 
 -- Give a formal proof of the following:
 
-example : true := _
+example : true := true.intro
 
 
 -- -------------------------------------
@@ -109,7 +116,12 @@ Given an English language description of
 this inference rule. What does it really
 say, in plain simple English. 
 
--- answer here
+-- answer here:
+/-
+If you have a proof of a proposition P, 
+and you have a proof of another proposition Q,
+then you can construct a proof of P and Q
+-/
 
 ELIMINATION
 
@@ -122,7 +134,13 @@ Formally state and prove the theorem that,
 for any propositions P and Q,  Q ∧ P → P. 
 -/
 
-example : _ := _
+example : ∀ (P Q : Prop), Q ∧ P → P := 
+begin
+  assume P Q QandP,
+  exact and.elim_right QandP,
+end
+
+
 
 
 -- -------------------------------------
@@ -137,7 +155,23 @@ T is any type (such as nat) and Q is any proposition
 given type), how do you prove ∀ (t : T), Q? What is
 the introduction rule for ∀?
 
--- answer here
+-- answer here:
+/-
+Assume we're given an arbitrary but specific
+object of type T (t : T). If we prove that the 
+proposition Q is true for t, then it follows
+that the proposition Q is true for all objects
+of type T. We can make the logical jump that 
+if object t of type T satisfies the proposition Q
+then that proposition is true for all objects
+of type T because we made no assumptions 
+whatsoever about t. 
+
+The introduction rule for all is that if
+we can prove something of an arbitrary yet specific
+object of type T, then it is true for all objects
+of that type. 
+-/
 
 ELIMINATION
 
@@ -148,16 +182,28 @@ what it says.
 
 (T : Type) (Q : Prop), (pf : ∀ (t : T), Q) (t : T)
 -------------------------------------------------- elim
-                [Replace with answer]
+                     q : Q 
 
 -- English language answer here
+/-
+If you have a proof that for all objects of type T, Q 
+is true, then you can apply that proof as a kind
+of function to a any specific value of type T,
+say t, to produce a proof of the proposition Q. 
+-/
 
 Given a proof, (pf : ∀ (t : T), Q), and a value, (t : T),
 briefly explain in English how you *use* pf to derive a
 proof of Q.
 
--- answer here
+-- answer here:
+/-
+you can *apply* the proof pf, which states that for all 
+objects of type T the proposition Q is satified, to
+object t of type T, which returns a proof of Q. 
 -/
+-/
+
 
 /-
 Consider the following assumptions, and then in the
@@ -173,14 +219,20 @@ axioms
   -- formalizee the following assumptions here
   -- (1) Lynn is a person
   -- (2) Lynn knows logic
-  -- add answer here
-  -- add answer here
-
+  -- add answer here (Lynn : Person)
+  (Lynn : Person)
+  -- add answer here (LynnKnowsLogic: KnowsLogic Lynn)
+  (LynnKnowsLogic : KnowsLogic Lynn)
 /-
 Now, formally state and prove the proposition that
 Lynn is a better computer scientist
 -/
-example : _ := _
+example : BetterComputerScientist Lynn  := 
+begin
+  apply LogicMakesYouBetterAtCS Lynn,
+  exact LynnKnowsLogic,
+end
+
 
 
 
@@ -196,7 +248,7 @@ Lean's definition of not.
 -/
 
 namespace hidden
-def not (P : Prop) := _ -- fill in the placeholder
+def not (P : Prop) := P → false -- fill in the placeholder
 end hidden
 
 /-
@@ -206,6 +258,12 @@ strategy to prove a proposition, ¬P.
 -/
 
 -- answer here
+/-
+To prove not P (¬P) by proof by negation, you assume
+P is true and then you show that that assumption 
+leads to some contradiction. This allows you to 
+conclude P → false, or ¬P. 
+-/
 
 /-
 Explain precisely in English the "proof strategy"
@@ -215,15 +273,15 @@ the lack of a ¬ in front of the P).
 
 Fill in the blanks the following partial answer:
 
-To prove P, assume ____ and show that __________.
-From this derivation you can conclude __________.
-Then you apply the rule of negation ____________
+To prove P, assume "¬P" and show that "this assumption leads to a contradiction".
+From this derivation you can conclude "¬¬P".
+Then you apply the rule of negation "elimination"
 to that result to arrive a a proof of P. We have
 seen that the inference rule you apply in the 
 last step is not constructively valid but that it
-is __________ valid, and that accepting the axiom
-of the __________ suffices to establish negation
-__________ (better called double _____ _________)
+is "classicaly" valid, and that accepting the axiom
+of the "law of excluded middle" suffices to establish negation
+"elimination" (better called double "negation" "elimination")
 as a theorem.
 -/
 
@@ -253,9 +311,16 @@ that iff has both elim_left and elim_right
 rules, just like ∧.
 -/
 
-example : _ :=
+example : ∀ (P Q : Prop), (P ↔ Q) → (Q ↔ P) :=
 begin
-_
+assume P Q,
+assume PbimpQ,
+split,
+cases PbimpQ with pimpq qimpp,
+exact qimpp,
+cases PbimpQ with pimpq qimpp,
+exact pimpq,
+
 end
 
 
@@ -289,11 +354,22 @@ def ELJL : Prop :=
     (JohnLennon : Person)
     (JLNT : Nice JohnLennon ∧ Talented JohnLennon),
     (∀ (p : Person), Likes p JohnLennon) 
-    
+  /-
+  Proposition in English:
+  For all people who are nice and talented,
+  everybody likes them. John Lennon is 
+  nice and talented, so therefore everybody must
+  like John Lennon.
+  -/
 
 example : ELJL :=
 begin
-  _
+  unfold ELJL,
+  assume person Nice Talented Likes elant JohnLennon JLNT p,
+  apply elant,
+  exact and.elim_left JLNT,
+  exact and.elim_right JLNT,
+
 end
 
 
@@ -304,9 +380,15 @@ If every car is either heavy or light, and red or
 blue, and we want a prove by cases that every car 
 is rad, then: 
 
--- how many cases will need to be considered? __
+-- how many cases will need to be considered? _4_
 -- list the cases (informaly)
     -- answer here
+    /-
+    case 1 : heavy and red
+    case 2 : light and red
+    case 3 : heavy and blue
+    case 4 : light and blue
+    -/
 
 -/
 
@@ -337,10 +419,11 @@ the terms means.)
 -/
 
 def eq_is_symmetric : Prop :=
-  ∀ (T : Type) (x y : T), _
+  ∀ (T : Type) (x y : T), x = y → y = x
 
 def eq_is_transitive : Prop :=
-  _
+   ∀ (T : Type) (x y z : T), x = y → y = z → x = z
+
 
 
 /-
@@ -359,7 +442,20 @@ both directions.
 -/
 
 def negelim_equiv_exmid : Prop := 
-  _
+  ∀ (P : Prop), P → ¬¬P ↔ P ∨ ¬P
+
+example : negelim_equiv_exmid:=
+begin
+  unfold negelim_equiv_exmid,
+  assume P,
+  apply iff.intro _ _,
+  assume h,
+  apply classical.em P,
+  assume em,
+  assume P,
+  assume f,
+  contradiction,
+end
 
 
 /- 
