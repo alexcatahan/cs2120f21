@@ -102,6 +102,17 @@ prove them formally.
 If there's a Ball that's Red and Green then 
 there is a ball that's Red.
 -/
+
+/-
+  Person is a type/ a person exists/there is a thignt hat is a person
+  Nice is a function from person to prop
+  -given a person, that person is nice
+  -for example Nice amanda, itll return a prop that amanda is tnice
+  Likes is person to person to prop
+  a function that takes in two people, and returns
+  a proposition that the first person likes the second person
+
+  -/
 example : 
   (∃ (b : Ball), Red b ∧ Green b) → 
   (∃ (b : Ball), Red b) :=
@@ -196,7 +207,6 @@ English language sentences.
 -/
 
 -- Everyone likes him or herself
-  ∀ (p : Person),  Likes p p
 
 -- Someone doesn't like him or herself
 

@@ -53,9 +53,10 @@ begin
 end
 
 -- Extra credit [2 points]. Who invented this principle?
-
-
-
+/-
+This principle was known as modus ponens and was
+first described by a greek scholar names Theophrastus
+-/
 -- -------------------------------------
 
 
@@ -97,6 +98,7 @@ there's no use for an elimination rule.
 example : true := true.intro
 
 
+
 -- -------------------------------------
 
 /- #3: ∧ - and [10 points]
@@ -118,9 +120,10 @@ say, in plain simple English.
 
 -- answer here:
 /-
-If you have a proof of a proposition P, 
-and you have a proof of another proposition Q,
-then you can construct a proof of P and Q
+Given a proof of a proposition P, 
+and a proof of another proposition Q,
+you can construct a proof of the conjuction
+P and Q (P ∧ Q).
 -/
 
 ELIMINATION
@@ -128,7 +131,28 @@ ELIMINATION
 Given the elimination rules for ∧ in both
 inference rule and English language forms.
 -/
+--answer:
+/-
+inference rule notation for ∧
 
+(P Q : Prop) (pq : P ∧ Q)
+-------------------------  ∧ elim (right)
+          q : Q
+
+(P Q : Prop) (pq : P ∧ Q)
+-------------------------  ∧ elim (left)
+          p : P
+
+In English:
+Given a proof of the conjuction P and 
+Q is true, we know P is true, and we know Q is true. 
+In lean, if we are given a proof that P ∧ Q
+is true, we can construct a proof that the left
+side of the conjuction is true (p : P), and we 
+can also construct a proof the the right side
+of the conjuction is true (q : Q). 
+
+-/
 /-
 Formally state and prove the theorem that, 
 for any propositions P and Q,  Q ∧ P → P. 
@@ -167,7 +191,7 @@ then that proposition is true for all objects
 of type T because we made no assumptions 
 whatsoever about t. 
 
-The introduction rule for all is that if
+The introduction rule for for all is that if
 we can prove something of an arbitrary yet specific
 object of type T, then it is true for all objects
 of that type. 
@@ -186,10 +210,11 @@ what it says.
 
 -- English language answer here
 /-
-If you have a proof that for all objects of type T, Q 
-is true, then you can apply that proof as a kind
-of function to a any specific value of type T,
-say t, to produce a proof of the proposition Q. 
+If you have a proof that for all objects of type T, 
+the proposition Q is true, then you can apply 
+that proof as a kind of function to any specific 
+value of type T, say t, to produce a proof of the 
+proposition Q. 
 -/
 
 Given a proof, (pf : ∀ (t : T), Q), and a value, (t : T),
@@ -198,9 +223,8 @@ proof of Q.
 
 -- answer here:
 /-
-you can *apply* the proof pf, which states that for all 
-objects of type T the proposition Q is satified, to
-object t of type T, which returns a proof of Q. 
+You can use pf by *applying* the proof pf
+to object t of type T, which returns a proof of Q. 
 -/
 -/
 
@@ -257,7 +281,7 @@ of "proof by negation." Explain how one uses this
 strategy to prove a proposition, ¬P. 
 -/
 
--- answer here
+-- answer here:
 /-
 To prove not P (¬P) by proof by negation, you assume
 P is true and then you show that that assumption 
@@ -273,15 +297,15 @@ the lack of a ¬ in front of the P).
 
 Fill in the blanks the following partial answer:
 
-To prove P, assume "¬P" and show that "this assumption leads to a contradiction".
-From this derivation you can conclude "¬¬P".
-Then you apply the rule of negation "elimination"
+To prove P, assume ¬P and show that this assumption leads to a contradiction.
+From this derivation you can conclude ¬¬P.
+Then you apply the rule of negation elimination
 to that result to arrive a a proof of P. We have
 seen that the inference rule you apply in the 
 last step is not constructively valid but that it
-is "classicaly" valid, and that accepting the axiom
-of the "law of excluded middle" suffices to establish negation
-"elimination" (better called double "negation" "elimination")
+is classicaly valid, and that accepting the axiom
+of the law of excluded middle suffices to establish negation
+elimination (better called double negation elimination)
 as a theorem.
 -/
 
@@ -356,8 +380,19 @@ def ELJL : Prop :=
     (∀ (p : Person), Likes p JohnLennon) 
   /-
   Proposition in English:
+
+  Person is a type. Nice takes a person and returns
+  the proposition that that person is nice. 
+  Talented takes a person and returns a 
+  proposition that that person is talented. 
+  Likes takes in two people and returns that
+  the first person likes the second person.
+  "elantp" is a proposition that states:
+
   For all people who are nice and talented,
-  everybody likes them. John Lennon is 
+  everybody likes them. Or, more fluently
+  put, everybody likes all people who are
+  nice and taleneted. John Lennon is 
   nice and talented, so therefore everybody must
   like John Lennon.
   -/
@@ -467,4 +502,11 @@ thre is someone who loves everyone. [5 points]
 
 axiom Loves : Person → Person → Prop
 
-example : _ := _
+example : (∃ (p : Person), ∀ (e : Person), Loves e p) ∧  
+          (∀ (p p2 : Person), Loves p2 p → Loves p p2) →
+          ∃ (s : Person), ∀ (e1: Person), Loves s e1 := 
+begin
+assume h,
+
+end
+
