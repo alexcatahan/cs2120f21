@@ -9,12 +9,73 @@ Examples:
 - string, ++
 - bool, &&, ! (and, not)
 -/
-
+--set of objects, and then operations on that set
+--(carrier set), (set of operations on the values of carrier set)
 /-
 We now introduce the algebraic structure
 that we call the set, by explaining what
 are the objects of this type and what are
 the applicable operations.
+-/
+
+--a set is a collection of objects of some kind, and those
+--are the objects of our algebraic structure
+
+/-
+operations on sets:
+  -union
+  -complement
+  -empty
+  -complete
+  -intersection
+  -power set : the set of all possible subsets
+  -subset : that every element in the first set is also in the second set, if V is a memeber of S prime, than V is a member of S
+  -membership: given a set, given a value, you get back some sense whether that value is in that set or not
+  -product: set of all possible pairs of sets
+
+-/
+
+/-
+Power Set:
+{1,2,3} -type nat
+{1,2}, {2,3}, {1, 3} -type set(nat)
+{1}, {2}, {3} -type set(nat)
+{} - empty set of elements of some type, in this case nat
+{1, 2, 3}
+
+TYPE OF A POWER SET IS SET OF SET OF NAT set(set(nat))
+
+when you add one element to a set you double the size of the power set
+the size of the power set is 2^n: set of the power set of a set of size n
+-/
+
+/-
+Product set:
+1 = {nice, mean} 2 = {cat dog}
+{(nice, cat), (nice, dog), (mean, cat), (mean, dog)}
+
+the size of a proudct set is the product of the size of the two sets
+-/
+
+/-
+{1, 2, 3, 4} : this is called display notation
+
+{n : N | n % 2 = 0} - using a predicate to distinguish wheteher 
+                      an element is in a set or not/ set defined
+                      by a predicate, the type of the predict in 
+                      this example is nat → Prop
+
+
+-/
+/-
+russels paradox: consider the set of all sets that don't contain 
+themselves lets call that set S. S is the set of all set's that
+don't contain itself. 
+-/
+
+/-
+sets can't contain itself b/c a set of type T objects
+can't hold a set of type set T inside
 -/
 
 /- OBJECTS 
