@@ -7,6 +7,10 @@ natural numbers.
 def ev (n : ℕ) : Prop := n % 2 = 0
 def od (n : ℕ) : Prop := ¬ ev n
 
+/-
+A set is just defined by a predicate
+WE IDENTIFY SETS BY THE MEMBERSHIP PREDICATES
+-/
 
 /-
 We now formally represent some sets.
@@ -26,29 +30,43 @@ set T rather than T → Prop to specify
 the type of a set value.
 -/
 
-def empte : set ℕ := { n : ℕ | _ }
+/-
+DISPLAY notation:
+-/
+def one_to_four : set ℕ := {1, 2, 3, 4}
 
-def complete : set ℕ := { n : ℕ | _ }
 
-def evens : set ℕ := { n : ℕ | true }
+/-
+COMPREHENSION notation
+-/
+def empte : set ℕ := { n : ℕ | false }
+-- defining the set of type nat such that... false because no natural
+--number should have the such statement to be true to be put into
+--the set
 
-def ods : set ℕ := { n : ℕ | true }
+def complete : set ℕ := { n : ℕ | true }
 
-def evens_union_ods : set ℕ := { n : ℕ | _ }
+def evens : set ℕ := { n : ℕ | ev n }
 
-def evens_intersect_ods : set ℕ  := { n : ℕ | _ }
+def ods : set ℕ := { n : ℕ | od n }
 
-def evens_complement : set ℕ := { n : ℕ | _ }
+def evens_union_ods : set ℕ := { n : ℕ | ev n ∨ od n }
 
-def ods_complement : set ℕ := { n : ℕ | _ }
+def evens_intersect_ods : set ℕ  := { n : ℕ | ev n ∧ od n }
 
-def evens_intersect_empty : set ℕ := _
+def evens_complement : set ℕ := { n : ℕ | ¬ev n }
+                                          -- or od n
 
-def evens_intersect_complete : set ℕ := _
+def ods_complement : set ℕ := { n : ℕ | ¬od n }
+                                        -- or ev n
 
-def evens_union_empty : set ℕ := _
+def evens_intersect_empty : set ℕ := {n : ℕ | ev n ∧ n ∈ empte}
 
-def evens_union_complete : set ℕ := _
+def evens_intersect_complete : set ℕ := {n : ℕ | ev n ∧ true}
+
+def evens_union_empty : set ℕ := {n : ℕ | ev n ∨ n ∈ empte}
+
+def evens_union_complete : set ℕ := {n : ℕ | evens n ∨ true}
 
 -- fill in additional interesting combinations
 
