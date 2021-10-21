@@ -10,31 +10,39 @@ the following conjectures.
 def evens : set ℕ := { n | n%2 = 0}
 
 example : ({ 0, 2 } : set ℕ) ⊆ evens :=
+
 begin
-  /-
   show ∀ n, n = 0 ∨ n = 2 → n ∈ evens,
-  -/
   assume n,
   assume h,
   cases h,
   -- case: n = 0
   rw h,
-  /-
+  
   unfold evens,
   show {n : ℕ | n % 2 = 0} 0,
-  show 0 % 0 = 0,
-  -/
+  show 0 % 2 = 0,
+  
   exact rfl,
   -- case: n = 2
   cases h,
-  /-
+  
   show 2 ∈ evens,
   show evens 2,
   unfold evens,
   show 2 % 2 = 0,
-  -/
+  
   exact rfl,
 end
+
+/-
+we want to prove that the set 0,2 is a subset of the evens
+so we're gonna do it by case anaylsis
+consider each element in the first set 0 and then 2
+show that each of these elements are in the second set
+that'll show that all of the elements are in the second set
+and that's the definition of a subset
+-/
 
 /-
 We now look at the concept of *equality* 
@@ -60,12 +68,17 @@ as set.ext, or you can open the set
 namepace and then just call it ext. 
 -/
 #check @set.ext 
+--you reduce the problem of L = X into
+-- L is a subset of X and X is a subset of L
+--set ext: if alpha is any type and a and b are sets of alphas
+--and if for every element that element is in a if and only if
+--the element is in b, then set a equals set b
 
 /-
 Remember that you can think about an
 implication, P → Q, in two ways: first,
-if P then Q; second, to prove P it will
-suffice to prove Q. So to prove L = X, 
+if P then Q; second, to prove Q it will
+suffice to prove P. So to prove L = X, 
 it suffices to prove ∀ x, x ∈ L ↔ x ∈ X,
 because one can then apply ext to that
 proof to derive a proof of L = X. In 
@@ -73,6 +86,9 @@ other words, ext lets you "reduce" the
 need for a proof of L = X to the need
 for a proof of ∀ x, x ∈ L ↔ x ∈ X. And
 that is what we see next. 
+
+L equals X is L is a subset of X
+and X is a subset of L
 
 The concept of set equality, and the 
 need to prove certain sets to be equal,
@@ -147,5 +163,7 @@ Exercise: Prove (formally and informally) that
 Exercise: Prove (formally and informally) that 
 ∪ is left-distributive over ∩.
 -/
+
+
 
 
