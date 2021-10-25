@@ -53,7 +53,8 @@ English Proof:
 To prove that L union X is the same as X union L we can first apply
 cases on L union X. The two cases is that some element, call it x,
 is in L or x is in X. We now have to proof that x is in X or L, 
-and in the first case x is in L, and in the second case x is in X,
+and in the first case of our case analysis, x is in L, and in the 
+second case of our case analysis x is in X,
 so the disjuntion, or union, is true. We now have to prove the 
 backwards proposition that if x is in X union L, then x is in 
 L union X. We again do this by utilizing case analysis 
@@ -133,6 +134,7 @@ begin
   apply or.intro_right,
   apply or.intro_right,
   exact h,
+  --backward
   assume h,
   cases h,
   apply or.intro_left,
@@ -169,7 +171,48 @@ begin
 
 end
 
-
+/-
+English proof:
+First we have to prove that the union of sets is associative. 
+Since this proof is dealing with the equality of sets, we reduce
+the problem by applying the set extensionality axiom. What is now
+left to be proven is the biimplication of the set extensionality, which
+says an element, call it x, is in the union of the set A union B with
+the set C, if and only if x is in the union of the set
+B union C with the set A. To prove the forward proposition
+(if x is in the union of the sets A union B and C, then x is in the union 
+of sets B union C and A) we assume we have some element x, and 
+then we assume that x is in the union of sets A union B and C. What 
+is left to be proven is that x is in the union of sets B union C
+with set A. We can do this by recognizing that our assumption is 
+really a disjuntion, with 2 cases: x is in set A union B
+or x is in set C. With this disjunction we can run 
+case analysis. In the first case, where x is in set A union B, we can 
+run case analysis again to further break it down into two seperate cases, 
+where x is in set A or x is in set B. In the case where x is in A
+we can prove that x is in the union of sets B union C and set A, because
+that proof goal is true if X is in the set B or C, or in the set A, 
+and we have an assumption that x is in set A. In the case where x is
+in B we can again simplify our proof goal into proving x is in B using 
+the or introduction rule since unions can be thought of as disjunctions. 
+Our case is where x is in B, so that is proven. In the case where x is
+in C, we again can use or introduction rules to simplify our goal
+down to proving x is in C, which is proven by our assumption. Now what
+is left to be proven is the backwards proposition, that is x is in 
+the unions of sets B union C with A, then x is in the unions of sets 
+A union B with C. We can again utlize case analysis and the or introduction 
+rule to simplify this goal into three cases, one where we prove x is in A, 
+one where x is in B, and another proving x is in C. Using our assumption we 
+can prove these goals, and in that context the union operator being 
+associative is proven. To prove that the intersection operator on sets is associate
+we can again reduce this goal using the set extensionality axiom. We then 
+assume the premise that x is in the intersection of sets A intersection B 
+and C, and since intersections can be thought of as "ands", we can 
+simplify our goal using the and introduction rule. What is left to be 
+proven is that x is in A and x is in B and x is in C, and by applying
+the and elimination rule to our assumption we can arrive at these 
+conclusions. In this context, intersection being associative is proven. 
+-/
 
 /-
 Assignment: read (at least skim) the Sections 1 and 2 of 
