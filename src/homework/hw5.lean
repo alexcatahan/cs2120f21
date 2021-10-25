@@ -47,12 +47,45 @@ What does this propositon say? Explain it in
 plain English. Here's a start: "If there's a 
 function that maps/takes every α value that ... 
 -- your completed English rendition here:
+If there's a function that maps/takes every α value and
+turns it to a corresponding β value, then for all values a of type α,
+if the predicate p is true for a, then the predicate
+q onto the mapping function applied to a is true. 
+In this context, if there exists an a of type α such that 
+the predicate p is true for a, then there exists
+a b of type β such that the predicate of q is true for b.
 -/
 
 
 -- Give your formal proof here
 begin
-  _
+  assume h,
+  assume h2,
+  cases h with w pf,
+  cases h2 with w2 pf2,
+  apply exists.intro (w w2),
+  exact (pf w2 pf2),
+
 end
+/-
+informal proof:
+First assume there exists a function f that maps
+α types to β types, such that if 
+the predicate p applied to the alpha type is true, then the
+proposition q is true for the mapping function applied to 
+the alpha type. We then  assume that there exists a value 
+of type α, call it a, such that the predicate p is true for a. 
+We now need to prove that there exists a value b of type β
+such that the predicate q is true for b. We do this by case
+analysis on our assumptions. Because of case analysis,
+we can now provide a witness to the existential proposition, 
+which says there exists a value of type β, and now all that 
+is left to prove is that the predicate q can be applied 
+to the witness. We do this by applying a proof that
+for all a of type α, if the predicate p true for a, 
+then the proposition q is true for the mapping function 
+applied to a, onto a witness of an α type and a proof that 
+the predicate p is applied to the α type. 
+-/
   
 
