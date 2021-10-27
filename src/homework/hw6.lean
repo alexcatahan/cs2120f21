@@ -179,32 +179,14 @@ the problem by applying the set extensionality axiom. What is now
 left to be proven is the biimplication of the set extensionality, which
 says an element, call it x, is in the union of the set A union B with
 the set C, if and only if x is in the union of the set
-B union C with the set A. To prove the forward proposition
-(if x is in the union of the sets A union B and C, then x is in the union 
-of sets B union C and A) we assume we have some element x, and 
-then we assume that x is in the union of sets A union B and C. What 
-is left to be proven is that x is in the union of sets B union C
-with set A. We can do this by recognizing that our assumption is 
-really a disjuntion, with 2 cases: x is in set A union B
-or x is in set C. With this disjunction we can run 
-case analysis. In the first case, where x is in set A union B, we can 
-run case analysis again to further break it down into two seperate cases, 
-where x is in set A or x is in set B. In the case where x is in A
-we can prove that x is in the union of sets B union C and set A, because
-that proof goal is true if X is in the set B or C, or in the set A, 
-and we have an assumption that x is in set A. In the case where x is
-in B we can again simplify our proof goal into proving x is in B using 
-the or introduction rule since unions can be thought of as disjunctions. 
-Our case is where x is in B, so that is proven. In the case where x is
-in C, we again can use or introduction rules to simplify our goal
-down to proving x is in C, which is proven by our assumption. Now what
-is left to be proven is the backwards proposition, that is x is in 
-the unions of sets B union C with A, then x is in the unions of sets 
-A union B with C. We can again utlize case analysis and the or introduction 
-rule to simplify this goal into three cases, one where we prove x is in A, 
-one where x is in B, and another proving x is in C. Using our assumption we 
-can prove these goals, and in that context the union operator being 
-associative is proven. To prove that the intersection operator on sets is associate
+B union C with the set A. To prove both the forward
+and backward propositions it suffices to prove the x is in set A
+or x is in set B or x is in set C. We can do this by recognizing 
+that our assumption is really a disjuntion, which we can run 
+cases analyses on. By case analysis on our union of sets we 
+can prove that x is in A or x is in B or x is in C, and in this context
+our the associative property of the union operator is proven.
+To prove that the intersection operator on sets is associate
 we can again reduce this goal using the set extensionality axiom. We then 
 assume the premise that x is in the intersection of sets A intersection B 
 and C, and since intersections can be thought of as "ands", we can 
@@ -265,6 +247,26 @@ begin
    
 end
 
+/-
+English proof:
+To prove that the intersection operator is left-distributive
+over the intersection operator, we need to prove that the 
+intersection of set A with the intersection of sets B and C 
+is the same as the intersection of the two sets A intersect with B
+and B intersect with C. First we reduce our goal of equality into 
+one of bimplication using the set extensionality axiom. To prove our
+goals we need to recognize that the intersection operator can be 
+thought of as an "and", so it suffices to prove that an element, 
+call it x, is in set A, and x is in set B, and x is in set C. 
+We can break up our goals into these "ulimate" goals (x is in A, and
+x is in B, and x is in C) by applying the introduction rule for and. 
+Since our equality goal turned into two goals of implication, we can 
+assume the premise, and in every case we can apply the elimination 
+rule for and onto our assummption, which gives us the proofs 
+that x is in A, and x is in B, and x is in C. Once we prove that 
+the same element is in each set, then the left-distributive property
+of intersection over intersection is proven. 
+-/
 
 /-
 Exercise: Formally state and prove both formally 
@@ -304,5 +306,35 @@ begin
   apply and.intro AorB AorC,
   
 end
+
+/-
+Our goal is to prove that the union operator is left 
+distributive over the intersection operator. To prove this
+goal, it suffices to prove an element, call it x, is in the
+union of set A with the intersection of sets B and C if and only
+if x is in the intersection of the sets A union B and set A union C. 
+We can then break this biimplication into two implication goals. To 
+prove that x is in the union of set A with the intersecion of sets B
+and C implies x is in the intersection of the set A union B and set A
+union C, we first assume that x is indeed in the union of set A with
+the intersection of sets B and C. What this assumption is really saying 
+is that x is in A or x is in B and C, which is a dijunction we can
+run case analysis on. We have to show that x being in the intersection
+of the set A union B and set A union C logically follows from our assumption. 
+In the case where x is in set A, we can show that x is in set A,
+which satisfys x is in the intersection of two unions with set A. In
+the case where x is in the intersection of B and C, we can derive
+proof that x is in B, and a proof that x is in C, using the elimination
+rule for and. If x is in B and x is in C, we can prove that x is in
+the intersection of one union that includes set B, and another union
+that includes set C. Now what is left to prove is that x is in 
+the intersection of the sets A union B and set A union C implies
+that x is in the union of set A with the intersection of sets B and C. 
+We first assume that x is in the intersection of sets A union B and A
+union C. With this assumption we can derive proofs that x is in 
+A or B, or x is in A or C, both are disjunctions we can run case analysis
+on. Using case analysis we can prove x is in each needed set, and in this
+context our goal is proven. 
+-/
 
 

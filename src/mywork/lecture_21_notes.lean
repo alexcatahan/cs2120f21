@@ -11,15 +11,6 @@ PROPERTIES OF RELATIONS
 
 section relation
 
-/-
-For any types, α and β we will refine a
-relation, r, to be a predicate on values
-of these types. It will implicitly define
-the set of all such pairs, also called a
-relation, that satisfy the predicate (by
-yielding a proposition for which there is
-a proof).
--/
 
 variables {α β : Type}  (r : β → β → Prop)
 /-
@@ -30,7 +21,7 @@ the variables used in the rest of a given
 definition. We'll see an example shortly.
 -/
 
-#check r   -- two place predicate: relation
+#check r   -- two place predicate: relation (binary relation)
 
 /-
 We will introduce an infix notation, ≺, 
@@ -109,6 +100,7 @@ to let us write the implicit argument(s)
 explicitly. 
 -/
 begin
+  apply rfl,
 end
 
 /-
