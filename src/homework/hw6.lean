@@ -215,8 +215,8 @@ conclusions. In this context, intersection being associative is proven.
 -/
 
 /-
-Assignment: read (at least skim) the Sections 1 and 2 of 
-the Wikipedia page on set identities: 
+Assignment: read (at least skim) the Sections 1 and 
+2 of the Wikipedia page on set identities: 
 https://en.wikipedia.org/wiki/List_of_set_identities_and_relations 
 There, , among *many* other facts, you will find definitions 
 of left and right distributivity. To complete the remainder
@@ -226,8 +226,8 @@ one operator to be left- (or right-) distributive over another.
 
 
 /-
-Exercise: Formally state and prove both formally and 
-informally that ∩ is left-distributive over ∩.
+Exercise: Formally state, and prove both formally and 
+informally, that ∩ is left-distributive over ∩.
 -/
 example: ∀ {α : Type} (A B C : set α), A ∩ (B ∩ C) = (A ∩ B) ∩ (B ∩ C) :=
 begin
