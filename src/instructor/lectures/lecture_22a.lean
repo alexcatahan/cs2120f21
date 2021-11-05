@@ -1,5 +1,3 @@
-import tactic.ring
-
 /-
 State formally and prove the proposition
 that congruence mod n is an equivalence
@@ -82,7 +80,7 @@ begin
   assume k,
   unfold cong_mod,
   apply exists.intro (0:ℤ),
-  ring, 
+  sorry, -- accept without proof for now
 
   -- symmetric
   split,
@@ -90,9 +88,11 @@ begin
   assume x y h,
   cases h with v pf,
   apply exists.intro (-v),
-  ring,
+  have lemma1 : -v * n = -(v * n) := sorry,
+  rw lemma1,
   rw <-pf,
-  ring,
+  have lemma2 : y - x = -(x - y) := sorry,
+  rw <-lemma2,
 
   -- transitive
      -- you prove it
@@ -105,7 +105,7 @@ begin
   rw int.distrib_right _ _ _,     -- LIBRARY LOOKUP!
   rw <-h2pf,
   rw <-h1pf,
-  ring,
+  sorry, 
 end
 
 /-
@@ -138,34 +138,4 @@ end
 
 example (n : ℕ): equivalence (cong_mod_nat n) :=
 begin
- unfold equivalence,
-  unfold reflexive,
-  split,
-  assume x,
-  unfold cong_mod_nat,
-  --symetric
-  unfold symmetric,
-  split,
-  assume x y,
-  unfold cong_mod_nat,
-  assume xy,
-  rw xy,
-  unfold transitive,
-  assume x y z,
-  unfold cong_mod_nat,
-  assume xy,
-  assume yz,
-  rw xy,
-  rw yz,
-
 end
-/-
-To prove that cong_mod_nat n is an equivalence 
-relation it suffices to prove that cong_mod_nat n 
-is symmetric, reflexive, and transitive. 
--/
-
-/-
-
-
--/

@@ -37,9 +37,19 @@ needed to be "functions."
 -/
 
 def anti_reflexive := ∀ x, ¬ x ≺ x
+-- everything is not related to itself
+--if its not reflexvie some things could be related to themselves
+-- and some could not be
+--less than is a good example
 def irreflexive := anti_reflexive r -- sometimes used
 def anti_symmetric := ∀ ⦃x y⦄, x ≺ y → y ≺ x → x = y
+--a relation where is x is realted to y
+--and y is related to x then they have to be equal to eachother
+--less than or equal to is a good example
 def asymmetric := ∀ ⦃x y⦄, x ≺ y → ¬ y ≺ x
+--if one is related to the other
+--than the other is not related to the first
+--less than is a good example
 
 -- Exercises:
 /-
@@ -48,12 +58,22 @@ def asymmetric := ∀ ⦃x y⦄, x ≺ y → ¬ y ≺ x
 -/
 
 example : reflexive r → ¬ asymmetric r := _   -- true?
-example : ¬ reflexive r ↔ irreflexive r := _  -- true?
+example : ¬ reflexive r ↔ irreflexive r := _  -- false
+--not reflexive says some objects are not related to itself
+--irreflexive is every object is not related to itself
 
 
+--transitive closure
 inductive tc {α : Type} (r : α → α → Prop) : α → α → Prop
 | base  : ∀ a b, r a b → tc a b
 | trans : ∀ a b c, tc a b → tc b c → tc a c
+/-
+the transitive closure of a binary relation called r
+is the smallest relation r ⊆ r' such that r is a subrelation
+and r' is transitive
+
+the smallest amount of 'arrows' to make the relation transitive
+-/
 
 
 /- 

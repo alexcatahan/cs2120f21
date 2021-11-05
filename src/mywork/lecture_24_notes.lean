@@ -1,4 +1,4 @@
-import .lecture_23 
+import .lecture_23_notes 
 
 /-
 UNIVERSAL QUANTIFICATION OVER AN EMPTY SET IS TRUE
@@ -24,7 +24,7 @@ lemma  allBallsInEmptyBucketAreRed :
   ∀ (b : Ball), b ∈ empty_bucket → red b := 
 begin
   assume b h,
-  _             -- finish off this proof
+  cases h,             -- finish off this proof
 end
 
 /- 
@@ -46,7 +46,14 @@ arguments, not just 2, it becomes clear that when
 applied to zero arguments, the answer better be true,
 otherwise this operation would *always* return false.  
 -/
+--for all is like a generalized and
+--if you say every ball in the bucket is red
+--youre saying that the first ball is red AND
+--the second ball is red AND ... 
 
+-- existential proposition is really a generalized form of or
+--universal generalization over an empty set is always true
+--existenial proposition over an empty set is always false
 /-
 So now let's revisit once again our funny example of
 transitivity: { (0,1), (2,3) }. There are no cases 
@@ -57,17 +64,21 @@ the transitivity property holds by the definition of
 argument version of ∧, taking anywhere from zero to
 an infinite number of arguments).
 
-Question: Is this symmetric? {(0,1), (1,0), (2,2)}
-How about this: {(0,1), (1,0), (2,2)}?
+Question: Is this symmetric? {(0,1), (1,0), (2,2)} --is symretric
+How about this: {(0,1), (1,0), (2,3)}? --is not symetric
+--symetric means that for every pair (x,y), (y,x) is in the set
 
 Now suppose that we have a relation, r, over a set
-of values, {0, 1, 2, 3, 4, 5}. Is this relation
-reflexive? {}
+of values, {0, 1, 2, 3, 4, 5} --this is reflexive. Is this relation
+reflexive? {} what about this {(0, 1), (2, 3)} -- this is not reflexive, its irreflexvie
+--every element in the set is related to itself
 
 Question: If a relation is transitive and symmetric
 is it necessarily reflexive? If so, give an informal
 argument/proof. If not, give a counter-example. 
 -/
+
+
 
 /-
 CLOSURE OPERATIONS ON RELATIONS
@@ -89,6 +100,8 @@ picture.
 
 def reflexive_closure := λ (a b : β), (r a b) ∨ (a = b)
 def symmetric_closure := λ (a b : β), (r a b) ∨ (r b a)
+
+--symetric closure is really jut a relation union its inverse
 
 /-
 Let's look examples. What's in the reflexive closure
