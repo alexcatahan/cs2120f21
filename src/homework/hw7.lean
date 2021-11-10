@@ -195,6 +195,10 @@ begin
   assume x y xy yx,
   cases xy with w pf,
   cases yx with w2 pf2,
+  rw pf,
+  have foo : w = 1 := sorry,
+  rw foo,
+  ring,
   
   
 
