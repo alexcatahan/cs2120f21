@@ -243,6 +243,7 @@ end
 -- C
 example : transitive r → ¬ symmetric r → ¬ irreflexive r :=
 begin
+  
 end
 
 
