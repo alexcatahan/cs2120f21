@@ -16,7 +16,23 @@ def asymmetric := ∀ ⦃x y⦄, x ≺ y → ¬ y ≺ x
 -- Prove both formally and in English.
 example : (∃ (x y : β), r x y) → asymmetric r → ¬reflexive r :=
 begin
+  assume h,
+  cases h with w pf,
+  unfold asymmetric,
+  unfold reflexive,
+  assume h,
+  assume j,
+  have a := j w,
+  have b := h a,
+  contradiction,
 end
+/-
+To prove that if a relation is assymteric then the relation is also
+not reflexive we first have to assume that there exist a x of β type
+in the relation, becaue this propisition is not true over an empty set.
+If the relation is assymetric than the pair of beta types are only 
+related one way, so they cannot possible be equal, or reflexive.
+-/
 
 
 
@@ -30,8 +46,17 @@ reflexive that it cannot be anti-symmetric. Is it actually true?
 If not, what condition needs to be added to make it true? See
 https://sites.oxy.edu/traiger/logic/exercises/chapter13/properties_of_relations_exercise.html
 -/
-example : transitive r → reflexive r → ¬ asymmetric r :=
+example : (∃ (b : β), true) → transitive r → reflexive r → ¬ asymmetric r :=
 begin
+  unfold transitive reflexive asymmetric,
+  assume h,
+  assume trans,
+  assume refl,
+  assume asymm,
+  cases h with w pf,
+  have r_w_w := refl w,
+  have notr_w_w := asymm r_w_w,
+  contradiction,
 end
 
 
@@ -51,6 +76,16 @@ example : ∀ (s : set β)
             s2 ⊆ s1 → 
             s1 = s2 :=
 begin
+  assume s s1 s2,
+  assume s1ins s2ins,
+  assume s1s2 s2s1,
+  apply set.ext,
+  assume x,
+  split,
+  assume xs1,
+  have xins2 := s1s2 xs1,
+  apply xins2,
+
 end
 
 /-
@@ -73,6 +108,15 @@ English.
 
 example : ∀ n, divides 1 n :=
 begin
+  assume n, 
+  unfold divides,
+  cases n,
+  apply exists.intro 0,
+  refl,
+  apply exists.intro 1,
+  
+  
+  
 end
 
 -- 3b. For any n, n divides n

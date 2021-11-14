@@ -160,8 +160,8 @@ be related in r. For any length-2 "path" from a to c
 (via b), then there's a direct connection: (a,c) ∈ r. 
 -/
 inductive tc {α : Type} (r : α → α → Prop) : α → α → Prop
-| base  : ∀ a b, r a b → tc a b
-| trans : ∀ a b c, tc a b → tc b c → tc a c
+| base  : ∀ a b, r a b → tc a b  --takes everything in r and says its in the transitive closure
+| trans : ∀ a b c, tc a b → tc b c → tc a c --actual does the "closure" part
 
 /-
 Here's a possibly surprising fact: the transitive 
@@ -227,3 +227,16 @@ given setting or application.
 
 end relation
 end relations
+
+/-
+Propoerty of ordering relationships are (example is less than or equal):
+  reflexive
+  transitive
+  antisymmetric
+
+  a total order is an ordering relationship that is total
+  - less than or equal on the natural numbers is a total order
+
+  a partial order is an ordering relationship that is not total
+    -example is subset inclusion on the powerset of a given set
+-/

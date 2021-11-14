@@ -187,3 +187,8 @@ together into a new end to end relation.
 def composition (s : β → γ → Prop) :=
   λ a c, (∃ b, s b c ∧ r a b)
 
+  -- r to a and then applies s after r
+  /-
+  (s comp r) a = s(r(a))
+  -/
+
