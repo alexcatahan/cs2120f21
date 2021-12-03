@@ -206,7 +206,7 @@ def unit_to_nat : unit → nat :=
 begin
   assume u,
   apply unit.rec_on u,    -- one case to consider
-  exact 0                 -- in this case return 0
+  exact 0,                 -- in this case return 0
 end
 
 #eval unit_to_nat unit.star
@@ -224,7 +224,7 @@ inductive bool : Type
 
 
 -- Now for the induction principle / elimination rule
-
+#check @bool.rec_on
 /-
 A function, Boolean not (!), defined by recursion
 -/
@@ -254,7 +254,7 @@ How about Boolean or, a binary operation?
 def bor : bool → bool → bool :=
 begin
   assume b,
-  apply bool.rec,
+  apply bool.rec, -- apply induction principle and there are two cases
   exact b,
   exact bool.tt,
 end
@@ -390,16 +390,17 @@ begin
 assume n,
 -- construct function by induction/recursion
 -- have to give partial answers for two cases
-apply nat.rec_on n,
+--apply nat.rec_on n,
+induction n with n' n'succ_result,
 -- answer for base case, n = 0
 exact 0,
 -- show if we have answer for n' we can derive answer one for n'+1
-assume n',              -- suppose n' is arbitrary
-assume result_for_n',   -- assume result for n' (ind. hypothesis)
-exact result_for_n' + (n' + 1),   -- answer for n' + 1
+--assume n',              -- suppose n' is arbitrary, when you use the induction tactic the two assumptions for the second case is already provided as hypotheses
+--assume result_for_n',   -- assume result for n' (ind. hypothesis)
+exact n' + (n'succ_result +1),   -- answer for n' + 1
 end
 
-
+#eval sum_to 18
 #reduce sum_to 0
 #reduce sum_to 1
 #reduce sum_to 2
@@ -410,11 +411,16 @@ end
 /-
 EXERCISE: Define the factorial function by recursion
 -/
-
+--assume youre giving an anser for n' and show you can contruct an anser for n' +1 is called the induction hypothesis
 def factorial : nat → nat :=
 begin
+assume n,
+induction n with n n_result,
+exact 1,
+exact n_result*(n+1),
 end
 
+#eval factorial 1
 /-
 Lean provides a nice notation for writing proofs
 or functions by induction/recursion. Let's rewrite
@@ -424,6 +430,10 @@ our sum_up function using it.
 def sum_up_to : nat → nat 
 | (nat.zero)    := nat.zero
 | (nat.succ n') := sum_up_to n' + (n' + 1)
+
+def fac: ℕ → ℕ
+| (nat.zero) := 1 --base case
+| (nat.succ n') := fac n' * (nat.succ n') --case for any number 
 
 /-
 The first rule gives you an answer for the base
